@@ -52,11 +52,15 @@ namespace functionsample
 
             var msg = JsonConvert.SerializeObject(customer);
 
-            //    var builder = new ConfigurationBuilder()
-            //.AddJsonFile("local.settings.json", optional: false, reloadOnChange: true);
-            //    IConfiguration Configuration = builder.Build();
+#if Debug
 
-            //string con = Configuration["Values:AzureWebJobsStorage"];
+                var builder = new ConfigurationBuilder()
+            .AddJsonFile("local.settings.json", optional: false, reloadOnChange: true);
+                IConfiguration Configuration = builder.Build();
+
+            string con = Configuration["Values:AzureWebJobsStorage"];
+
+#endif
 
             string con = System.Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 
@@ -80,12 +84,15 @@ namespace functionsample
             //Deserialize customer from the queue
             Customer customer = JsonConvert.DeserializeObject<Customer>(message);
 
+#if Debug
+       
 
-            //     var builder = new ConfigurationBuilder()
-            //.AddJsonFile("local.settings.json", optional: true, reloadOnChange: true);
-            //     IConfiguration Configuration = builder.Build();
+                 var builder = new ConfigurationBuilder()
+            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true);
+                IConfiguration Configuration = builder.Build();
 
-            //string con = Configuration["Values:AzureWebJobsStorage"];
+            string con = Configuration["Values:AzureWebJobsStorage"];
+#endif
 
             string con = System.Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 
@@ -98,8 +105,16 @@ namespace functionsample
             CloudBlobContainer container = blobClient.GetContainerReference(folder);
             container.CreateIfNotExists();
 
-            CloudBlockBlob blob = container.GetBlockBlobReference("test/newTextfile.txt");
-            blob.UploadText(customer.Name + ";" + customer.Age + ";" + customer.Phone);
+            CloudAppendBlob blob = container.GetAppendBlobReference("customers.txt");
+
+            if (!blob.Exists())
+            {
+                blob.CreateOrReplace();
+            }
+
+            blob.AppendText(customer.Name + ";" + customer.Age + ";" + customer.Phone);
+          
+            // blob.UploadText(customer.Name + ";" + customer.Age + ";" + customer.Phone);
 
         }
     
