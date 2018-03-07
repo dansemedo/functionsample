@@ -8,9 +8,11 @@ A simple demo of Azure Functions that receives a HTTP Requests with some paramet
 #### 5-	Execute no Postman ou no portal do Azure a seguinte requisição na Function AppStart:
  
 http://localhost:7071/api/AppStart
+'''json
 {
     "name": "daniel",
     "age": "32",
     "phone": "11-2312-2312"
 }
+'''
 #### 6-A Function deve funcionar, caso não funcione, me avise.
