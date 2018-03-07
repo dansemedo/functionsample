@@ -112,7 +112,7 @@ namespace functionsample
                 blob.CreateOrReplace();
             }
 
-            blob.AppendText(customer.Name + ";" + customer.Age + ";" + customer.Phone);
+            blob.AppendText(customer.Name + ";" + customer.Age + ";" + customer.Phone + "\n");
           
             // blob.UploadText(customer.Name + ";" + customer.Age + ";" + customer.Phone);
 
