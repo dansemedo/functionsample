@@ -52,11 +52,13 @@ namespace functionsample
 
             var msg = JsonConvert.SerializeObject(customer);
 
-            var builder = new ConfigurationBuilder()
-        .AddJsonFile("local.settings.json", optional: false, reloadOnChange: true);
-            IConfiguration Configuration = builder.Build();
+            //    var builder = new ConfigurationBuilder()
+            //.AddJsonFile("local.settings.json", optional: false, reloadOnChange: true);
+            //    IConfiguration Configuration = builder.Build();
 
-            string con = Configuration["Values:AzureWebJobsStorage"];
+            //string con = Configuration["Values:AzureWebJobsStorage"];
+
+            string con = System.Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 
             CloudQueueClient queueClient = CloudStorageAccount.Parse(con).CreateCloudQueueClient();
 
@@ -79,11 +81,15 @@ namespace functionsample
             Customer customer = JsonConvert.DeserializeObject<Customer>(message);
 
 
-            var builder = new ConfigurationBuilder()
-       .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true);
-            IConfiguration Configuration = builder.Build();
+            //     var builder = new ConfigurationBuilder()
+            //.AddJsonFile("local.settings.json", optional: true, reloadOnChange: true);
+            //     IConfiguration Configuration = builder.Build();
 
-            string con = Configuration["Values:AzureWebJobsStorage"];
+            //string con = Configuration["Values:AzureWebJobsStorage"];
+
+            string con = System.Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+
+
 
             CloudBlobClient blobClient = CloudStorageAccount.Parse(con).CreateCloudBlobClient();
 
