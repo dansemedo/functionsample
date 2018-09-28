@@ -1,6 +1,6 @@
 # Azure Functions sample
 A simple demo of Azure Functions that receives a HTTP Requests with some parameters, send to a queue and save it in a .csv Blob file.
-## Como executar
+## Como executar a Function em 6 passos simples
 #### 1-	Clone o repositório https://github.com/dansemedo/functionsample ;
 #### 2-	Crie no Azure uma Function App (Consumption Plan);
 #### 3-	Associe o deploy com sua conta/branch no github;
